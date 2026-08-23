@@ -1,0 +1,63 @@
+// launcher_version.rc -- application icon and version (file details) for hl.exe,
+// reconstructed to match the original WON launcher (hl.exe, build 1792) byte-for-byte.
+//
+// Kept in its own script (out of the generated launcher.rc / hl_res.rc) so the
+// icon and VERSIONINFO can be hand-maintained without touching the generated
+// dialog/string resources.
+#include <windows.h>
+
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+// Resource id 138 (0x8A): the launcher registers its window class with this
+// icon (see launcher_svc.cpp -- LoadIconA(..., MAKEINTRESOURCEA(0x8A))), and
+// the Windows shell shows the lowest-id group icon in Explorer / the taskbar.
+// NetGame.ico is byte-identical to the original hl.exe's icon group #138
+// (32x32 + 16x16, 4bpp).
+//
+138 ICON "NetGame.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version (file details)
+//
+// FIXEDFILEINFO and StringFileInfo values are taken verbatim from the original
+// hl.exe: FILEVERSION 1.1.0.8, "Half-Life Launcher", (C) 2001, OS = VOS__WINDOWS32,
+// type = VFT_APP.  Language/codepage block 040904B0 = U.S. English / Unicode,
+// matching the original's \VarFileInfo\Translation (0x0409, 1200).
+//
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,1,0,8
+ PRODUCTVERSION 1,1,0,8
+ FILEFLAGSMASK 0x3fL
+ FILEFLAGS 0x0L
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "Comments", ""
+            VALUE "CompanyName", "Valve, L.L.C."
+            VALUE "FileDescription", "Half-Life Launcher"
+            VALUE "FileVersion", "1, 1, 0, 8"
+            VALUE "InternalName", "Half-Life Launcher"
+            VALUE "LegalCopyright", "Copyright (C) 2001"
+            VALUE "LegalTrademarks", ""
+            VALUE "OriginalFilename", "hl.exe"
+            VALUE "PrivateBuild", ""
+            VALUE "ProductName", "Half-Life Launcher"
+            VALUE "ProductVersion", "1, 1, 0, 8"
+            VALUE "SpecialBuild", ""
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

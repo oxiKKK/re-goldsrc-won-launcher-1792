@@ -1,0 +1,55 @@
+# CMake / build output
+/build/
+/out/
+[Bb]uild*/
+CMakeCache.txt
+CMakeFiles/
+CMakeUserPresets.json
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.opendb
+*.aps
+ipch/
+
+# Build artifacts
+*.obj
+*.o
+*.exe
+*.dll
+*.exp
+*.ilk
+*.idb
+*.pdb
+*.tlog
+*.lastbuildstate
+
+# Legacy MSVC build and IDE artifacts
+/Debug/
+/Release/
+*.plg
+*.ncb
+*.opt
+*.res
+*.pch
+vc6_*.log
+
+# Keep the vendored prebuilt VGUI import lib (a real dependency, not build output)
+!launcher/vgui1/vgui.lib
+
+# Local machine-specific Half-Life path for the post-build copy step
+# (the committed halflife_path.txt.example is the template)
+/halflife_path.txt
+
+# Local WON server key material
+/auth.key
+/verifier.key
+/kver.kp
+
+__pycache__/
+*.pyc

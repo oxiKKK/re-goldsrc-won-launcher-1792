@@ -1,0 +1,16 @@
+# .clang-format-ignore -- exclude every file in this repository from clang-format.
+#
+# This project is a faithful source-level reconstruction of the 2001 WON-era
+# Half-Life launcher (hl.exe build 1792).  Its formatting is deliberate and
+# significant: tabs, the original brace style, column-aligned member/offset
+# comments, and a layout chosen to mirror the binary's structure (and, in
+# Phase 4, the binary's function order).  Auto-formatting would destroy that
+# fidelity, so clang-format must skip the entire tree -- IDE "format on save",
+# pre-commit hooks, and bulk runs all honor this file.
+#
+# Patterns are matched against each file's path relative to this file.  The two
+# below cover the whole repo regardless of clang-format's `*` glob semantics:
+#   *      -> files at the repository root
+#   **/*   -> files in every subdirectory
+*
+**/*

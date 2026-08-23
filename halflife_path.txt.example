@@ -1,0 +1,11 @@
+# Destination Half-Life game folder for the post-build copy step.
+#
+# Copy this file to "halflife_path.txt" (same directory) and set the path to a
+# WON-era Half-Life (build 1786/1792) install. After each build, hl.exe and
+# WONCrypt.dll are copied there so the launcher can be run in place.
+#
+# - One path, on its own line. Lines starting with '#' and blank lines are ignored.
+# - Forward or back slashes both work.
+# - If "halflife_path.txt" is missing, the copy step is skipped (no build error).
+
+C:/Games/Half-Life
