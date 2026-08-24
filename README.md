@@ -52,12 +52,9 @@ This is a list of fixes this project implements:
 
 ## WON Server Emulation
 
-WON's original master, auth and chat servers have been offline for years, so a
-stock launcher can't authenticate, browse the server list, or join chat rooms.
-This project ships `wonserverd`, a local emulator of those services, so the
-launcher works the way it did in 2001. It builds alongside the launcher — see
-[`wonserver/README.md`](wonserver/README.md) for the full setup, including a
-standalone build and every supported command-line flag.
+Part of the reconstruction was also a WON server emulation. Since some of the pages such as Chat Rooms or Internet Games are technically not easily testable because WON servers are down, an emulator has also been built which allowed me to visually confirm and test these pages.
+
+The emulator can be found at `wonserver/`.
 
 Quick start:
 
@@ -68,8 +65,7 @@ Quick start:
 3. Copy the generated `kver.kp` into your Half-Life folder, replacing the
    original — the launcher uses it to trust the emulator's certificates.
 4. Point every block in the Half-Life folder's `woncomm.lst` at
-   `127.0.0.1` (Titan/Auth on port `6002`, Master on `27010`, ModServer on
-   `27011`).
+   `127.0.0.1`. See `wonserver/README.md`
 5. Keep `wonserverd.exe` running, then launch `hl.exe` as normal.
 
 ## Building
