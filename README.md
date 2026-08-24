@@ -50,6 +50,18 @@ This is a list of fixes this project implements:
 - **Mouse wheel scrolling**: The wheel now scrolls whatever list, drop-down or scrollbar the pointer is over.
 - **Keyboard list navigation**: The arrow keys, Page Up/Down, Home and End move the selection in a list, and Enter opens it.
 
+## Installation
+
+The original launcher carries out several dependencies such as `vgui.dll`, or the WON DLLs such as `WONCrypt.dll` or `WONAuth.dll`. For easy installation, by default, we bundle these DLLs into the launcher executable itself. This is also why the executable is bigger than the original file (among other factors).
+
+The installation is merely about copying the `hl.exe` file into the `Half-Life` folder and launching it.
+
+### Which versions of Half-Life are supported?
+
+Short answer: Only **Half-Life 1.1.0.8**, the final WON release from September 2001, is supported. This is the version of the game we used to reconstruct the source.
+
+In the old versions of the game, backwards compatibility is not established due to various factors such as incompatible DLL dependencies, engine interface differences, and so on. Therefore **other versions of the game are not compatible with this source reconstruction**.
+
 ## WON Server Emulation
 
 Part of the reconstruction was also a WON server emulation. Since some of the pages such as Chat Rooms or Internet Games are technically not easily testable because WON servers are down, an emulator has also been built which allowed me to visually confirm and test these pages.
