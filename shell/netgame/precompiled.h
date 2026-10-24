@@ -70,7 +70,7 @@
 #endif
 
 // ---------------------------------------------------------------------------
-// VGUI 1 (launcher/vgui1/include) -- used by the VGUI menu shim.
+// VGUI 1 (shell/netgame/vgui1/include) -- used by the VGUI menu shim.
 // ---------------------------------------------------------------------------
 #include <VGUI.h>
 #include <VGUI_App.h>
@@ -82,7 +82,7 @@
 #include "resource_dlg.h"
 
 // ---------------------------------------------------------------------------
-// Engine-lineage and vendored headers reached from outside launcher/.
+// Engine-lineage and vendored headers reached from outside shell/netgame/.
 // ---------------------------------------------------------------------------
 #include "re.h"
 #include "protocol.h"
@@ -106,7 +106,7 @@
 #include "won_msg.h"
 #include "won_dir.h"
 #include "won_factoryreq.h"
-#include "../hlwon/cryptapi/crc.h"
+#include "../../hlwon/cryptapi/crc.h"
 
 // ---------------------------------------------------------------------------
 // The launcher's own headers -- app-wide state and helpers first, then the

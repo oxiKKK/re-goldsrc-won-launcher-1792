@@ -40,7 +40,7 @@ ipch/
 vc6_*.log
 
 # Keep the vendored prebuilt VGUI import lib (a real dependency, not build output)
-!launcher/vgui1/vgui.lib
+!shell/netgame/vgui1/vgui.lib
 
 # Local machine-specific Half-Life path for the post-build copy step
 # (the committed halflife_path.txt.example is the template)

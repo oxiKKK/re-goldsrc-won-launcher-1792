@@ -48,7 +48,7 @@ option(LAUNCHER_FIXES "Enable the launcher's post-release fixes" ON)
 # hlwon/TitanApi/CMakeLists.txt for how the two DLLs fold in.
 #
 # vgui.dll is the one dependency this cannot absorb: it is a prebuilt third-party
-# binary (see launcher/vgui1/vgui.lib's comment) we only have an import lib for,
+# binary (see shell/netgame/vgui1/vgui.lib's comment) we only have an import lib for,
 # not its source. Every WON-era game folder already ships one, so it is not a
 # deployment burden the way the others are.
 option(LAUNCHER_STATIC "Statically link the CRT, MFC and the WON libraries into hl.exe" ON)
@@ -115,19 +115,19 @@ else()
     set(CMAKE_MFC_FLAG 2)
 endif()
 
-# launcher/ -- the launcher's own code (UI/dialogs/controls + services) alongside
-#              the standalone forks of GoldSrc engine foundation files
-#              (sys/common/cd/snd/token/info).
+# shell/netgame/ -- the launcher's own code (UI/dialogs/controls + services) alongside
+#                   the standalone forks of GoldSrc engine foundation files
+#                   (sys/common/cd/snd/token/info).
 file(GLOB LAUNCHER_SOURCES CONFIGURE_DEPENDS
-    "${REPO_ROOT}/launcher/*.cpp"
-    "${REPO_ROOT}/launcher/*.c"             # engine-lineage modules converted to C
+    "${REPO_ROOT}/shell/netgame/*.cpp"
+    "${REPO_ROOT}/shell/netgame/*.c"        # engine-lineage modules converted to C
     "${REPO_ROOT}/hlwon/won/*.cpp")   # WON directory / factory / message client
 
 add_executable(hl WIN32
     ${LAUNCHER_SOURCES}
     ${CRYPTAPI_SOURCES}                     # cryptapi.lib, linked in as the original does
-    "${REPO_ROOT}/launcher/launcher.rc"
-    "${REPO_ROOT}/launcher/launcher_version.rc"
+    "${REPO_ROOT}/shell/netgame/launcher.rc"
+    "${REPO_ROOT}/shell/netgame/launcher_version.rc"
     "${REPO_ROOT}/shell/hl_res/hl_res.rc")
 set_target_properties(hl PROPERTIES
     OUTPUT_NAME "hl"
@@ -136,7 +136,7 @@ set_target_properties(hl PROPERTIES
     MSVC_RUNTIME_LIBRARY "${HL_MSVC_RUNTIME_LIBRARY}")
 target_include_directories(hl PRIVATE
     "${REPO_ROOT}/common"
-    "${REPO_ROOT}/launcher"
+    "${REPO_ROOT}/shell/netgame"
     "${REPO_ROOT}/hlwon/won"
     "${REPO_ROOT}/hlwon/cryptapi"         # EasySocket / EasyTitanSocket / WriteBuffer / AuthRequest
     "${REPO_ROOT}/hlwon/TitanApi"
@@ -147,7 +147,7 @@ target_include_directories(hl PRIVATE
     "${REPO_ROOT}/engine"
     "${REPO_ROOT}/external/dx6sdk/include"
     "${REPO_ROOT}/shell/hl_res"
-    "${REPO_ROOT}/launcher/vgui1/include")
+    "${REPO_ROOT}/shell/netgame/vgui1/include")
 target_compile_definitions(hl PRIVATE
     WIN32 _MBCS _CRT_SECURE_NO_WARNINGS _CRT_NONSTDC_NO_DEPRECATE
     _WIN32_WINNT=0x0501 WINVER=0x0501    # target Windows XP; silences the SDK's "_WIN32_WINNT not defined -> MAXVER" warning
@@ -163,15 +163,15 @@ target_compile_definitions(hl PRIVATE
 target_compile_options(hl PRIVATE /EHsc /GR)
 
 # -----------------------------------------------------------------------------
-# Precompiled header.  launcher/precompiled.h carries everything the launcher
+# Precompiled header.  shell/netgame/precompiled.h carries everything the launcher
 # compiles against -- MFC/Win32/CRT, the WON and engine-lineage headers, and all
-# of launcher/*.h -- and is the single #include in every launcher TU.
+# of shell/netgame/*.h -- and is the single #include in every launcher TU.
 #
 # The vendored subprojects compiled into this target -- hlwon/cryptapi and
 # hlwon/won -- are excluded: they are non-MFC WON code and must keep compiling
 # on their own terms.
 # -----------------------------------------------------------------------------
-target_precompile_headers(hl PRIVATE "${REPO_ROOT}/launcher/precompiled.h")
+target_precompile_headers(hl PRIVATE "${REPO_ROOT}/shell/netgame/precompiled.h")
 file(GLOB WON_SOURCES CONFIGURE_DEPENDS "${REPO_ROOT}/hlwon/won/*.cpp")
 set_source_files_properties(${CRYPTAPI_SOURCES} ${WON_SOURCES}
     PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
@@ -185,21 +185,21 @@ set_source_files_properties(${CRYPTAPI_SOURCES} ${WON_SOURCES}
 #     afxwin.h drags in unconditionally (via afxrendertarget.h).  None of the
 #     five includes afxwin.h itself, and they must keep it that way.
 set_source_files_properties(
-    "${REPO_ROOT}/launcher/ddraw.cpp"
-    "${REPO_ROOT}/launcher/gameui.cpp"
-    "${REPO_ROOT}/launcher/modes.cpp"
-    "${REPO_ROOT}/launcher/snd_win.cpp"
-    "${REPO_ROOT}/launcher/vid_win.cpp"
+    "${REPO_ROOT}/shell/netgame/ddraw.cpp"
+    "${REPO_ROOT}/shell/netgame/gameui.cpp"
+    "${REPO_ROOT}/shell/netgame/modes.cpp"
+    "${REPO_ROOT}/shell/netgame/snd_win.cpp"
+    "${REPO_ROOT}/shell/netgame/vid_win.cpp"
     PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 
-# Resource compiler needs to find resource.h (shell/hl_res) and resource_dlg.h (launcher).
-target_include_directories(hl PRIVATE "${REPO_ROOT}/shell/hl_res" "${REPO_ROOT}/launcher")
+# Resource compiler needs to find resource.h (shell/hl_res) and resource_dlg.h (shell/netgame).
+target_include_directories(hl PRIVATE "${REPO_ROOT}/shell/hl_res" "${REPO_ROOT}/shell/netgame")
 
 target_link_libraries(hl PRIVATE
     WONCrypt        # the WON DLL boundary in the original: two DLLs, imported by name.
     WONAuth         # LAUNCHER_STATIC makes these STATIC libraries instead -- see hlwon/TitanApi/CMakeLists.txt.
     unzip531
-    "${REPO_ROOT}/launcher/vgui1/vgui.lib"
+    "${REPO_ROOT}/shell/netgame/vgui1/vgui.lib"
     winmm
     ws2_32
     ddraw
